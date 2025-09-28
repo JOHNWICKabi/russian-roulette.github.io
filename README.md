@@ -42,11 +42,6 @@ To host on GitHub Pages:
 
 ---
 
-## 🖼️ Preview
-(Add a screenshot or GIF of your game here once hosted)
-
----
-
 ## 📜 Credits
 - Gun Image → [PNGimg](https://pngimg.com/free-png/revolver)  
 - Sounds → [SoundJay](https://www.soundjay.com/) & [Freesound](https://freesound.org/)  
