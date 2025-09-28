@@ -21,7 +21,7 @@
 
   .gun-container {
     position: relative;
-    margin-left: -50;
+    margin-left: -50px;
     margin-top: 10px;
     width: 95vw;
     max-width: 500px;
@@ -91,6 +91,12 @@
     background: #666;
   }
 
+  .trigger-count {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #ffcc00;
+  }
+
   .credit {
     font-size: 0.8rem;
     text-align: center;
@@ -135,6 +141,9 @@
     <button onclick="pullTrigger()">🔫 Trigger</button>
   </div>
 
+  <!-- Trigger Count Display -->
+  <div class="trigger-count" id="triggerCount">Trigger Pulled: 0 / 6</div>
+
   <!-- Sounds -->
   <audio id="fireSound">
     <source src="https://www.soundjay.com/mechanical/sounds/gun-gunshot-01.mp3" type="audio/mpeg">
@@ -157,6 +166,7 @@
     function spin() {
       bulletPosition = Math.floor(Math.random() * 6) + 1;
       currentChamber = 1;
+      updateTriggerCount();
 
       // Play spin sound
       const spinSound = document.getElementById('spinSound');
@@ -182,19 +192,27 @@
         fireSound.play();
 
         deathOverlay.classList.add('active');
-        setTimeout(() => deathOverlay.classList.remove('active'), 3000); // 3 seconds
+        setTimeout(() => {
+          deathOverlay.classList.remove('active');
+          spin(); // auto-reset for new round
+        }, 3000); // 3 seconds
 
         setTimeout(() => flash.classList.remove('active'), 250);
       } else {
         // Play poof sound when trigger is pulled but no fire
         poofSound.currentTime = 0;
         poofSound.play();
-      }
 
-      currentChamber++;
-      if (currentChamber > 6) currentChamber = 1;
+        currentChamber++;
+        if (currentChamber > 6) currentChamber = 1;
+        updateTriggerCount();
+      }
+    }
+
+    function updateTriggerCount() {
+      const triggerCount = document.getElementById('triggerCount');
+      triggerCount.textContent = `Trigger Pulled: ${currentChamber - 1} / 6`;
     }
   </script>
 </body>
 </html>
-
